@@ -4,6 +4,8 @@ import lk.ijse.dep11.web.to.Incident;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@WebServlet({"/incidents",""})
+@MultipartConfig(location = "/tmp")
 public class IncidentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +35,7 @@ public class IncidentServlet extends HttpServlet {
                 String reporting_person=rst.getString("reporting_person");
                 String path=rst.getString("path");
                 incidentList.add(new Incident(id,date,incident,description,location,reporting_person,path));
-                getServletContext().getRequestDispatcher("#").forward(req,resp);
+                getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

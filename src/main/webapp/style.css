@@ -4,10 +4,10 @@
 :root{
     font-family: 'Roboto', sans-serif;
 }
-.incident-picture{
-    height: 100px;
+main .incident-picture{
+    height: 480px;
     background-color: lightgray;
     object-fit: contain;
     background-position: center;
-    padding: 5px;
+    padding: 2px;
 }

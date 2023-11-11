@@ -12,3 +12,11 @@ CREATE TABLE picture(
     CONSTRAINT fk_picture FOREIGN KEY (incident_id) REFERENCES incident(id)
                     ON UPDATE CASCADE
 );
+
+CREATE TABLE user(
+                     username VARCHAR(100) PRIMARY KEY,
+                     password VARCHAR(300) NOT NULL,
+                     full_name VARCHAR(100) NOT NULL
+);
+
+

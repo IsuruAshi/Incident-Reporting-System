@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@WebServlet({"/incidents",""})
+@WebServlet({"/incidents"})
 @MultipartConfig(location = "/tmp")
 public class IncidentServlet extends HttpServlet {
     @Override

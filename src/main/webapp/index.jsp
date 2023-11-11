@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta charset="UTF-8">
@@ -11,15 +11,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
-    <link href="style.css">
+    <link rel="stylesheet" href="style.css">
     <title>JSP - Hello World</title>
     <title>Title</title>
 </head>
 <body>
-<header class="p-2 text-center">
-    <h1 class="mb-0"> Incident Report Collection</h1>
-
-</header>
+<%@include file="WEB-INF/header.jsp"%>
 <main class="container-fluid">
     <div class="row">
         <div class="col-xl-4">
@@ -78,7 +75,7 @@
                         <td>${incident.description}</td>
                         <td>${incident.location}</td>
                         <td class="text-center">
-                            <img class="incident-picture text-center img-thumbnail" src="${empty incident.pictureUrl? 'img/no-pic.png':incident.pictureUrl}">
+                            <img class="incident-picture img-thumbnail" src="${empty incident.pictureUrl? 'img/no-pic.png':incident.pictureUrl}">
                         </td>
                     </tr>
                 </c:forEach>
@@ -97,5 +94,6 @@
     </div>
     </div>
     </main>
+<%@include file="WEB-INF/footer.jsp"%>
 </body>
 </html>

@@ -61,7 +61,22 @@ public class IncidentServlet extends HttpServlet {
                 stmIncident.setString(3,description);
                 stmIncident.setString(4,location);
                 stmIncident.setString(5,reporting_person);
+                if(picture.getSize()>0){
+                    String uploadsDirPath = getServletContext().getRealPath("/uploads");
+                    UUID imageID = UUID.randomUUID();
+                    String picturePath=uploadsDirPath+imageID;
 
+                    ResultSet generatedKeys = stmIncident.getGeneratedKeys();
+                    generatedKeys.next();
+
+                    PreparedStatement stmPicture = connection.prepareStatement("INSERT INTO picture (incident_id, path)" +
+                            "VALUES (?,?)");
+                    stmPicture.setInt(1,generatedKeys.getInt(1));
+                    stmPicture.setString(2,"uploads/"+imageID);
+                    stmPicture.executeUpdate();
+                    picture.write(picturePath);
+                }
+                connection.commit();
             }catch (Throwable t){
                 connection.rollback();
                 t.printStackTrace();

@@ -1,0 +1,13 @@
+*{
+    box-sizing: border-box;
+}
+:root{
+    font-family: 'Roboto', sans-serif;
+}
+.incident-picture{
+    height: 100px;
+    background-color: lightgray;
+    object-fit: contain;
+    background-position: center;
+    padding: 5px;
+}

@@ -7,10 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class IncidentServlet extends HttpServlet {
     @Override
@@ -29,12 +31,47 @@ public class IncidentServlet extends HttpServlet {
                 String reporting_person=rst.getString("reporting_person");
                 String path=rst.getString("path");
                 incidentList.add(new Incident(id,date,incident,description,location,reporting_person,path));
-                getServletContext().getRequestDispatcher("index.jsp").forward(req,resp);
-
+                getServletContext().getRequestDispatcher("#").forward(req,resp);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String incident=req.getParameter("incident");
+        String date=req.getParameter("date");
+        String description=req.getParameter("description");
+        String location =req.getParameter("location");
+        String reporting_person=req.getParameter("person");
+        Part picture=req.getPart("picture");
+
+        BasicDataSource pool = (BasicDataSource) getServletContext().getAttribute("connectionPool");
+        try {
+            Connection connection = pool.getConnection();
+            connection.setAutoCommit(false);
+            try {
+                PreparedStatement stmIncident = connection
+                        .prepareStatement("INSERT INTO incident" +
+                                "(date, incident_name, description, location, reporting_person)" +
+                                "VALUES (?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
+                stmIncident.setString(1,date);
+                stmIncident.setString(2,incident);
+                stmIncident.setString(3,description);
+                stmIncident.setString(4,location);
+                stmIncident.setString(5,reporting_person);
+
+            }catch (Throwable t){
+                connection.rollback();
+                t.printStackTrace();
+            }finally {
+                connection.setAutoCommit(true);
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        resp.sendRedirect("/app");
     }
 }

@@ -35,8 +35,9 @@ public class IncidentServlet extends HttpServlet {
                 String reporting_person=rst.getString("reporting_person");
                 String path=rst.getString("path");
                 incidentList.add(new Incident(id,date,incident,description,location,reporting_person,path));
-                getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
             }
+            req.setAttribute("incidentList",incidentList);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -65,8 +66,9 @@ public class IncidentServlet extends HttpServlet {
                 stmIncident.setString(3,description);
                 stmIncident.setString(4,location);
                 stmIncident.setString(5,reporting_person);
+                stmIncident.executeUpdate();
                 if(picture.getSize()>0){
-                    String uploadsDirPath = getServletContext().getRealPath("/uploads");
+                    String uploadsDirPath = getServletContext().getRealPath("/uploads/");
                     UUID imageID = UUID.randomUUID();
                     String picturePath=uploadsDirPath+imageID;
 

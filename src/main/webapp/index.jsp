@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
+    <link href="style.css">
     <title>JSP - Hello World</title>
     <title>Title</title>
 </head>
@@ -26,16 +27,16 @@
             <form action="incidents" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="incident" class="form-label">Incident</label>
-                    <input name="incident" minlength="4" type="text" class="form-control" id="incident" >
+                    <input required name="incident" minlength="4" type="text" class="form-control" id="incident" >
 
                 </div>
                 <div class="mb-3">
                     <label for="date" class="form-label">Date of Incident</label>
-                    <input name="date" type="date" class="form-control" id="date">
+                    <input required name="date" type="date" class="form-control" id="date">
                 </div>
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <input name="description" required minlength="10" type="text" class="form-control" id="description" >
+                    <input  name="description" required minlength="10" type="text" class="form-control" id="description" >
                 </div>
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
@@ -55,28 +56,29 @@
                 </div>
             </form>
         </div>
-        <div class="col-xl-8">
+    <div class="row">
+        <div class="col-xl">
             <table class="mt-2 table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">DATE</th>
-                    <th scope="col">INCIDENT</th>
-                    <th scope="col">DESCRIPTION</th>
-                    <th scope="col">LOCATION</th>
-                    <th scope="col">IMAGE</th>
+                    <th scope="col-1">ID</th>
+                    <th scope="col-1">DATE</th>
+                    <th scope="col-2">INCIDENT</th>
+                    <th scope="col-5">DESCRIPTION</th>
+                    <th scope="col-1">LOCATION</th>
+                    <th scope="col-2">IMAGE</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="incident" items="${incidentList}">
                     <tr>
-                       <td class="text-center">${incident.id}</td>
-                       <td>${incident.date}</td>
-                       <td>${incident.incident}</td>
-                       <td>${incident.description}</td>
-                       <td>${incident.location}</td>
+                        <td class="text-center">${incident.id}</td>
+                        <td>${incident.date}</td>
+                        <td>${incident.incident}</td>
+                        <td>${incident.description}</td>
+                        <td>${incident.location}</td>
                         <td class="text-center">
-                            <img src="${empty incident.pictureUrl? 'img/no-pic.img':incident.picture}">
+                            <img class="incident-picture text-center img-thumbnail" src="${empty incident.pictureUrl? 'img/no-pic.png':incident.pictureUrl}">
                         </td>
                     </tr>
                 </c:forEach>
@@ -84,7 +86,7 @@
                 <c:if test="${empty incidentList}">
                     <tfoot>
                     <tr>
-                        <td colspan="4" class="text-center">
+                        <td colspan="6" class="text-center">
                             There are no incident records to display
                         </td>
                     </tr>
@@ -93,8 +95,6 @@
             </table>
         </div>
     </div>
-    <div class="row">
-
     </div>
     </main>
 </body>

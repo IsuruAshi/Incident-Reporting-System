@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% application.getNamedDispatcher("IncidentServlet").include(request, response); %>
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="${mode}">
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta charset="UTF-8">
@@ -12,8 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>JSP - Hello World</title>
-    <title>Title</title>
+    <title>Welcome to IRS</title>
+
 </head>
 <body>
 <%@include file="WEB-INF/header.jsp"%>
@@ -21,7 +22,7 @@
     <div class="row">
         <div class="col-xl-4">
             <h2>Incident Details</h2>
-            <form action="incidents" method="POST" enctype="multipart/form-data">
+            <form  action="incidents" method="POST" autocomplete="off" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="incident" class="form-label">Incident</label>
                     <input required name="incident" minlength="4" type="text" class="form-control" id="incident" >
@@ -32,9 +33,13 @@
                     <input required name="date" type="date" class="form-control" id="date">
                 </div>
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <input  name="description" required minlength="10" type="text" class="form-control" id="description" >
+                    <label  class="form-label">Description</label>
+                    <div class="form-floating">
+                        <textarea name="description" required minlength="10" class="form-control" placeholder="Leave a comment here" id="description" style="height: 100px"></textarea>
+                        <label for="description">Description</label>
+                    </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
                     <input name="location" required minlength="3" type="text" class="form-control" id="location" >
@@ -58,12 +63,12 @@
             <table class="mt-2 table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th scope="col-1">ID</th>
-                    <th scope="col-1">DATE</th>
-                    <th scope="col-2">INCIDENT</th>
-                    <th scope="col-5">DESCRIPTION</th>
-                    <th scope="col-1">LOCATION</th>
-                    <th scope="col-2">IMAGE</th>
+                    <th class="text-center" scope="col">ID</th>
+                    <th class="text-center" scope="col">DATE</th>
+                    <th class="text-center" scope="col">INCIDENT</th>
+                    <th class="text-center" scope="col">DESCRIPTION</th>
+                    <th class="text-center" scope="col">LOCATION</th>
+                    <th class="text-center" scope="col">IMAGE</th>
                 </tr>
                 </thead>
                 <tbody>

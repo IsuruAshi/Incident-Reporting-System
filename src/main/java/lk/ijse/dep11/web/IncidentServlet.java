@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@WebServlet({"/incidents"})
+@WebServlet(urlPatterns = {"/incidents"}, name="IncidentServlet")
 @MultipartConfig(location = "/tmp")
 public class IncidentServlet extends HttpServlet {
     @Override
@@ -37,7 +37,7 @@ public class IncidentServlet extends HttpServlet {
                 incidentList.add(new Incident(id,date,incident,description,location,reporting_person,path));
             }
             req.setAttribute("incidentList",incidentList);
-            getServletContext().getRequestDispatcher("/index.jsp").forward(req,resp);
+            //getServletContext().getRequestDispatcher("/incidents").forward(req,resp);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

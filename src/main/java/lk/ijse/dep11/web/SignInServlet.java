@@ -36,7 +36,7 @@ public class SignInServlet extends HttpServlet {
                     }
                     session.setAttribute("fullName", rst.getString("full_name"));
                     session.setAttribute("mode", mode == null ? "dark" : mode);
-                    resp.sendRedirect(req.getContextPath());
+                    resp.sendRedirect(getServletContext().getContextPath());
                 } else {
                     req.setAttribute("denied", true);
                     getServletContext().getRequestDispatcher("/sign-in.jsp").forward(req, resp);
@@ -52,3 +52,4 @@ public class SignInServlet extends HttpServlet {
         }
     }
 }
+

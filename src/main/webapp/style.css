@@ -5,9 +5,17 @@
     font-family: 'Roboto', sans-serif;
 }
 main .incident-picture{
-    height: 480px;
+    height: 100px;
     background-color: lightgray;
     object-fit: contain;
     background-position: center;
     padding: 2px;
+}
+main table th:first-child,
+main table td:first-child {
+    width: 100px;
+}
+main table th:last-child,
+main table td:last-child {
+    width: 200px;
 }
